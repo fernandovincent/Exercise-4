@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import Button from "../../atoms/Button";
+import Input from "../../atoms/Input";
 import NavBar from '../../molecules/NavBar';
 
-const Login = ({ }) => {
+const Register = () => {
   const [fullName, setfullName] = useState("");
   const [userName, setuserName] = useState("");
   const [email, setEmail] = useState("");
@@ -25,14 +27,14 @@ const Login = ({ }) => {
       <NavBar />
       <h3 className="mt-3">Register</h3>
       <p className="form-label mt-3">Fullname</p>
-      <input
+      <Input
         className="form-control"
         placeholder="Masukan full name"
         value={fullName}
         onChange={(e) => setfullName(e.target.value)}
       />
       <p className="form-label mt-3">Username</p>
-      <input
+      <Input
         className="form-control"
         placeholder="Masukan username"
         type="userName"
@@ -47,7 +49,7 @@ const Login = ({ }) => {
         onChange={(e) => setEmail(e.target.value)}
       />
       <p className="form-label mt-3">Phone Number</p>
-      <input
+      <Input
         className="form-control"
         placeholder="Masukan phone number"
         type="phoneNumber"
@@ -55,7 +57,7 @@ const Login = ({ }) => {
         onChange={(e) => setphoneNumber(e.target.value)}
       />
       <p className="form-label mt-3">Address</p>
-      <input
+      <Input
         className="form-control"
         placeholder="Masukan address"
         type="address"
@@ -64,11 +66,9 @@ const Login = ({ }) => {
       />
       <br />
       <br />
-      <button type="button" onClick={handleSubmit} className="btn btn-primary">
-        Register
-      </button>
+      <Button onSubmit={handleSubmit} text="Register" />
     </div>
   );
 };
 
-export default Login;
+export default Register;

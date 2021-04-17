@@ -3,7 +3,7 @@ import NavBar from '../../molecules/NavBar';
 
 const About = () => {
   return (
-    <div>
+    <div className="container mt-3">
       <NavBar />
       <h3>About</h3>     
     </div>

@@ -1,7 +1,9 @@
 import React, { useState } from "react";
-import NavBar from '../../molecules/NavBar';
+import NavBar from "../../molecules/NavBar";
+import Button from "../../atoms/Button";
+import Input from "../../atoms/Input";
 
-const Login = ({ }) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -19,14 +21,14 @@ const Login = ({ }) => {
       <NavBar />
       <h3 className="mt-3">Login</h3>
       <p className="form-label mt-3">Email</p>
-      <input
+      <Input
         className="form-control"
         placeholder="Masukan email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
       <p className="form-label mt-3">Password</p>
-      <input
+      <Input
         className="form-control"
         placeholder="Masukan password"
         type="password"
@@ -35,9 +37,7 @@ const Login = ({ }) => {
       />
       <br />
       <br />
-      <button type="button" onClick={handleSubmit} className="btn btn-primary">
-        Submit
-      </button>
+      <Button onSubmit={handleSubmit} text="Submit"/>
     </div>
   );
 };
