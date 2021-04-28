@@ -22,9 +22,9 @@ const Routes = () => {
         <Route path="/register">
           <Register />
         </Route>
-        <Route path="/adduser">
+        {/* <Route path="/adduser">
           <Adduser />
-        </Route>
+        </Route> */}
       </Switch>
     </Router>
   );

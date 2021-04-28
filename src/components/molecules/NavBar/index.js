@@ -30,9 +30,9 @@ const Navbar = () => {
             <Link className="nav-link" to="/register">
               Register
             </Link>
-            <Link className="nav-link" to="/adduser">
+            {/* <Link className="nav-link" to="/adduser">
               Add User
-            </Link>
+            </Link> */}
             <Link className="nav-link" to="/about">
               About
             </Link>

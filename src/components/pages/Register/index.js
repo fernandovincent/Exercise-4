@@ -1,72 +1,73 @@
 import React, { useState } from "react";
+import NavBar from "../../molecules/NavBar";
 import Button from "../../atoms/Button";
 import Input from "../../atoms/Input";
-import NavBar from '../../molecules/NavBar';
+import firebase from '../../../config/Firebase';
+import { useHistory } from 'react-router-dom';
 
 const Register = () => {
-  const [fullName, setfullName] = useState("");
-  const [userName, setuserName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setphoneNumber] = useState("");
-  const [address, setAddress] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [fullName, setFullName] = useState('');
 
-  const handleSubmit = () => {
+  let history = useHistory();
+
+  const onSubmit = () => {
     const data = {
-      fullName: fullName,
-      userName: userName,
       email: email,
-      phoneNumber: phoneNumber,
-      address: address,
+      fullName: fullName,
     };
-    console.log(data);
+
+    firebase
+      .auth().createUserWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        //Simpan ke Realtime Database
+        const userId = userCredential.user.uid;
+        firebase
+          .database()
+          .ref('users/' + userId)
+          .set(data);
+
+        setFullName("");
+        setEmail("");
+        setPassword("");
+        //Redirect ke Halaman Login
+        history.push("/login");
+      })
+      .catch((error) => {
+        console.log(error);
+        //Tampilkan Pesan Error
+      });
   };
 
   return (
-    //JSX
     <div className="container mt-5">
       <NavBar />
-      <h3 className="mt-3">Register</h3>
-      <p className="form-label mt-3">Fullname</p>
+      <p className="form-label mt-3">Nama Lengkap</p>
       <Input
         className="form-control"
-        placeholder="Masukan full name"
+        placeholder="Masukan nama lengkap"
         value={fullName}
-        onChange={(e) => setfullName(e.target.value)}
-      />
-      <p className="form-label mt-3">Username</p>
-      <Input
-        className="form-control"
-        placeholder="Masukan username"
-        type="userName"
-        value={userName}
-        onChange={(e) => setuserName(e.target.value)}
+        onChange={(e) => setFullName(e.target.value)}
       />
       <p className="form-label mt-3">Email</p>
-      <input
+      <Input
         className="form-control"
         placeholder="Masukan email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
-      <p className="form-label mt-3">Phone Number</p>
+      <p className="form-label mt-3">Password</p>
       <Input
         className="form-control"
-        placeholder="Masukan phone number"
-        type="phoneNumber"
-        value={phoneNumber}
-        onChange={(e) => setphoneNumber(e.target.value)}
-      />
-      <p className="form-label mt-3">Address</p>
-      <Input
-        className="form-control"
-        placeholder="Masukan address"
-        type="address"
-        value={address}
-        onChange={(e) => setAddress(e.target.value)}
+        placeholder="Masukan password"
+        type="password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
       />
       <br />
       <br />
-      <Button onSubmit={handleSubmit} text="Register" />
+      <Button onClick={onSubmit} text="Register New User"/>
     </div>
   );
 };
